@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hello world</title>
+</head>
+
+<body>
+    <div id="app" class="container" :style='myContainer'>
+        <div class="btn-group">
+            <button class="btn btn-primary" @click="toggleDirective()">基础指令</button>
+            <button class="btn btn-info" @click="toggleCalcAttr()">计算属性</button>
+        </div>
+
+        <!-- 基础指令 -->
+        <div class="row" v-if="seenDirective">
+
+            {{message}}
+            <div v-bind:title="message">
+                鼠标悬停几秒钟查看此处动态绑定的提示信息!
+            </div>
+            <div v-show="show">
+                我是内容啊
+            </div>
+
+            <h2>v-for</h2>
+            <ul class="list-group-item-info">
+                <li v-for='todo in todos'>
+                    {{todo.text}}
+                </li>
+            </ul>
+
+            <h2>v-on绑定事件 (@)</h2>
+            <button class="btn btn-primary" v-on:click="hello()">click me</button>
+
+            <h2>v-model</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>{{inputText}}</p>
+                    <input type="text" v-model='inputText'>
+                </div>
+            </div>
+
+            <h2>v-component</h2>
+            <!-- <ul class="list-group">
+                <todo-item v-for='todo in todos' v-bind:todo='todo'>
+
+                </todo-item>
+            </ul> -->
+
+
+            <h2>v-html</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div v-html="inputHtml"></div>
+                    <input type="text" v-model='inputHtml'>
+                </div>
+            </div>
+
+            <h2>v-disabled</h2>
+            <div class="btn-group">
+                <button class="btn btn-primary" v-bind:disabled="disabledClick" v-on:click="hello()">click Me</button>
+                <button class="btn btn-success" v-on:click="toggleDisabled(this)">toggle Disabled</button>
+            </div>
+
+            <h2>v-bind (:) to create Dynimcal Attribute</h2>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info" v-for='id in dynimcalIds' v-bind:id='id.id'>
+                    {{id.text}}
+                </li>
+            </ul>
+
+            <h2>v-if and v-show</h2>
+            <div class="panel panel-default">
+                <!-- v-if 可是用template v-show 不行 -->
+                <template v-if="false">
+                    <p>1</p>
+                    <p>2</p>
+                    <p>3</p>
+                </template>
+                <template v-show='false'>
+                    <p>v-show 1</p>
+                    <p>v-show 2</p>
+                    <p>v-show 3</p>
+                </template>
+            </div>
+
+
+        </div>
+
+        <!-- 计算属性 -->
+        <div class="row" v-if="seenClacArrtibute">
+            <h2 :class="{'text-danger':true}">计算属性</h2>
+            <div>
+                <p>{{calcMsg}}&nbsp;{{Date.now()|date}}</p>
+                <p>{{reversedMessage}}</p>
+
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-title" :style="{color:'red'}">
+                    计算属性与函数的区别
+                </div>
+                <div class="panel-group">
+                    <ul class="list-unstyled list-group">
+                        <li class="list-group-item list-group-item-info">
+                            <span>计算属性，获取当前时间:</span>
+                            <span>{{getNow|date}}</span>
+                            <button class="btn btn-success" @click='getNowByCalc()'>点击获取当前时间</button>
+
+                        </li>
+                        <li class="list-group-item list-group-item-info">
+                            <span>函数</span>
+                            <span>{{getNowByFunc()|date}}</span>
+                            <button class="btn btn-success" @click="getNowByFunc()">点击获取当前时间</button>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <h3 :class="[isActive ? activeClass : '', errorClass]">设置setter,getter</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <p>{{fullName}}</p>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" v-model="firstName">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" v-model="lastName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <div class="row">
+            <h2>改变值</h2>
+            <ul class="list-unstyled">
+                <li class="list-group-item-success" v-for='(value,key,index) in userInfos'>
+                    {{key}}:{{value}}
+                </li>
+            </ul>
+            <input type="text" v-model='userInfos.firstName'>
+            <button class="btn btn-primary" @click="toggleSex()">changeUserInfo</button>
+            <button class="btn btn-primary" @click="addUserInf()">addUserInfo</button>
+
+        </div>
+
+
+        <div class="row">
+            <div class="panel panel-default" style="padding: 15px;">
+                <div class="panel-title clearfix">
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" v-model='todoText' @keyup.enter="addTodo()" :placeholder="todoaPlaceholder">
+                    </div>
+                </div>
+                <ul class="list-unstyled" style="padding-left: 15px;">
+                    <todolist v-for="(item,index) in todolist" :key="item.id" :todo='item' @remove="removeTodo(index)"></todolist>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/dist/main.js"></script>
+
+</html>
