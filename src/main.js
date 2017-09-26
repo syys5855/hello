@@ -2,8 +2,9 @@ import Vue from 'vue';
 import _ from 'lodash'
 // import todo from '../src/component/todo';
 import todolist from '../src/component/todolist';
-
-
+import MyCounter from '../src/component/counter/index';
+import SyncCounter from './component/sync-counter';
+import MyChecker from './component/my-checker';
 
 window.trace = _.curry((tag, x) => {
     console.log(tag, x);
@@ -60,7 +61,25 @@ let app = new Vue({
             { text: 'hahha' }
         ],
         todoText: '',
-        todoaPlaceholder: 'input todo thing'
+        todoaPlaceholder: 'input todo thing',
+        initialCount: 0,
+        syncCount: 0,
+        checked: true,
+        checkValue: 'hahaha'
+    },
+    mounted() {
+        this.$on('123', (...params) => {
+            console.log(params);
+        });
+
+        setTimeout(() => {
+            this.$emit('123', 123);
+        }, 3000);
+
+
+        this.$on('increase', (...params) => {
+            console.log('increase--->', params);
+        })
     },
     methods: {
         hello() {
@@ -131,7 +150,10 @@ let app = new Vue({
         }
     },
     components: {
-        todolist
+        todolist,
+        MyCounter,
+        SyncCounter,
+        MyChecker
     },
     watch: {
         seenDirective: function(val, oldVal) {

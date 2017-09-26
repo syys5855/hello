@@ -166,7 +166,55 @@
                 </ul>
             </div>
         </div>
+        <!-- 定义在父组件中的$on接受不到 子组件的$emit的方法 -->
+        <my-counter :initial-count="initialCount" @increase="hello()"></my-counter>
+        <my-counter :initial-count="initialCount"></my-counter>
+        <!-- 以上两个都是动态的props -->
+        <!-- 通过字面量语法传递的都是 字符串 -->
+        <my-counter initial-count="0"></my-counter>
+
+
+        <div class="row">
+            <h3>sync</h3>
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="panel-group">
+
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                {{syncCount}}
+                                <div>
+                                    <sync-counter :initcount.sync='syncCount'></sync-counter>
+                                    <!-- <my-counter :initial-count.sync='syncCount'></my-counter> -->
+                                    <!-- 出现下划线的时候 sync 不起作用 -->
+                                    <my-counter :initial-count='syncCount' @update:initial-count="val=>syncCount=val"></my-counter>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-group-item-success">
+                                {{checked}}
+                                <input type="checkbox" v-model="checked" />
+                                <!-- v-model在checkbox 上的语法糖 -->
+                                <input type="checkbox" :checked="checked" @change="checked=$event.target.checked" />
+
+                                <!-- v-model 用在组件上的上的语法糖 -->
+                                <my-checker v-model="checked"></my-checker>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
+
+
+
+
+
+
 </body>
 <script src="/dist/main.js"></script>
 
