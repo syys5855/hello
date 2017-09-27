@@ -5,7 +5,8 @@ module.exports = {
 
     entry: {
         main: [path.join(__dirname, './src/main.js')],
-        chunk: ['vue', 'bootstrap']
+        mix: [path.join(__dirname, './src/mix.js')],
+        chunk: ['vue', 'bootstrap/dist/css/bootstrap.min.css']
     },
     output: {
         path: path.join(__dirname, './dist'),

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mix</title>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h3 class="text-success">
+                        mix
+                    </h3>
+                </li>
+                <li class="list-group-item">
+                    <my-counter :initial-count='0'></my-counter>
+                </li>
+                <li class="list-group-item">
+                    <h3>directives</h3>
+                </li>
+                <li class="list-group-item clearfix">
+                    <label class="col-xs-2 control-label">v-foucs</label>
+                    <div class="col-xs-10">
+                        <input class="form-control" type="text" v-focus>
+                    </div>
+                </li>
+                <li class="list-group-item clearfix">
+                    <label class="col-xs-2 control-label">bind update 简写</label>
+                    <div class="col-xs-10">
+                        <input class="form-control" type="text" v-model="color">
+                        <div v-color-picker="color" style="width: 20px;height: 20px;border:1px solid #ccc;">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="/dist/chunk.js"></script>
+<script src="/dist/mix.js"></script>
+
+</html>
