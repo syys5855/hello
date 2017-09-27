@@ -208,14 +208,47 @@
             </div>
         </div>
 
+        <!-- slot scope-->
+        <div class="row">
+            <slot-scope>
+                <template slot="li" scope="props">
+                    <h3 class="text-success">
+                        {{props.text}}
+                    </h3>
+                </template>
+            </slot-scope>
+        </div>
+
+
+        <!-- 动态的 component -->
+        <div class="row">
+            <div class="btn-group">
+                <button class="btn btn-primary" @click="componentId='my-checker'">my-checker</button>
+                <button class="btn btn-primary" @click="componentId='sync-counter'">sync-counter</button>
+
+            </div>
+            <div class="panel">
+                <!-- keep-alive 会保持组件状态 -->
+                <keep-alive>
+                    <component :is="componentId" initcount='0'>
+                    </component>
+                </keep-alive>
+            </div>
+        </div>
+
+
+        <!-- async component -->
+        <div class="row">
+            <div class="btn-group">
+                <button class="btn btn-primary" @click="asyncCom='async-component'">load AsyncCom</button>
+            </div>
+            <component :is="asyncCom"></component>
+        </div>
     </div>
 
 
-
-
-
-
 </body>
+<script src="/dist/common.js"></script>
 <script src="/dist/main.js"></script>
 
 </html>

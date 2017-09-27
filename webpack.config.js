@@ -4,7 +4,8 @@ var path = require('path');
 module.exports = {
 
     entry: {
-        main: [path.join(__dirname, './src/main.js')]
+        main: [path.join(__dirname, './src/main.js')],
+        chunk: ['vue', 'bootstrap']
     },
     output: {
         path: path.join(__dirname, './dist'),
@@ -43,12 +44,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.CommonsChunkPlugin('chunk')
     ],
     devtool: "#cheap-module-source-map",
     resolve: {
         extensions: ['.js', '.json', '.scss', '.css'],
         alias: { 'vue': 'vue/dist/vue.js' }
-
     }
 };

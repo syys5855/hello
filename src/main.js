@@ -5,6 +5,8 @@ import todolist from '../src/component/todolist';
 import MyCounter from '../src/component/counter/index';
 import SyncCounter from './component/sync-counter';
 import MyChecker from './component/my-checker';
+import SlotScope from './component/slot-scope';
+import AsyncCom from './component/async-component'
 
 window.trace = _.curry((tag, x) => {
     console.log(tag, x);
@@ -65,7 +67,9 @@ let app = new Vue({
         initialCount: 0,
         syncCount: 0,
         checked: true,
-        checkValue: 'hahaha'
+        checkValue: 'hahaha',
+        componentId: 'my-checker',
+        asyncCom: ''
     },
     mounted() {
         this.$on('123', (...params) => {
@@ -153,7 +157,9 @@ let app = new Vue({
         todolist,
         MyCounter,
         SyncCounter,
-        MyChecker
+        MyChecker,
+        SlotScope,
+        AsyncCom
     },
     watch: {
         seenDirective: function(val, oldVal) {
